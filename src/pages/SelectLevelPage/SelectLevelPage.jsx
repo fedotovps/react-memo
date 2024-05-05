@@ -3,7 +3,7 @@ import styles from "./SelectLevelPage.module.css";
 import { useSimpleModeContext } from "../../context/hooks/useSimpleMode";
 
 export function SelectLevelPage() {
-  const {simpleMode, handleSimpleMode} = useSimpleModeContext();
+  const { simpleMode, handleSimpleMode } = useSimpleModeContext();
   return (
     <div className={styles.container}>
       <div className={styles.modal}>

@@ -208,7 +208,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             </>
           )}
         </div>
-        {status === STATUS_IN_PROGRESS ? <Button countGame={simpleMode ? countGame : null} onClick={resetGame}>Начать заново</Button> : null}
+        {status === STATUS_IN_PROGRESS ? (
+          <Button countGame={simpleMode ? countGame : null} onClick={resetGame}>
+            Начать заново
+          </Button>
+        ) : null}
       </div>
 
       <div className={styles.cards}>

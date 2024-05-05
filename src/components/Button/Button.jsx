@@ -5,7 +5,7 @@ export function Button({ countGame, children, onClick }) {
     <div>
       {!countGame ? null : <p>Осталось попыток: {countGame}</p>}
       <button onClick={onClick} className={styles.button}>
-      {children}
+        {children}
       </button>
     </div>
   );

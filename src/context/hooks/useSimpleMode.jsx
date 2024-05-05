@@ -1,6 +1,6 @@
-import { useContext } from "react"
-import { SimpleModeContext } from "../SimpleModeContext"
+import { useContext } from "react";
+import { SimpleModeContext } from "../SimpleModeContext";
 
 export const useSimpleModeContext = () => {
-    return useContext(SimpleModeContext);
-}
+  return useContext(SimpleModeContext);
+};
