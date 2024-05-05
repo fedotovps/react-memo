@@ -5,6 +5,7 @@ import styles from "./Cards.module.css";
 import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
+import { useSimpleModeContext } from "../../context/hooks/useSimpleMode";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -46,6 +47,10 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   // Текущий статус игры
   const [status, setStatus] = useState(STATUS_PREVIEW);
 
+  const { simpleMode } = useSimpleModeContext();
+  // Количество оставщихся попыток в упрощенном режиме
+  const [countGame, setCountGame] = useState(3);
+
   // Дата начала игры
   const [gameStartDate, setGameStartDate] = useState(null);
   // Дата конца игры
@@ -60,6 +65,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   function finishGame(status = STATUS_LOST) {
     setGameEndDate(new Date());
     setStatus(status);
+    setCountGame(3);
   }
   function startGame() {
     const startDate = new Date();
@@ -127,6 +133,13 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
     if (playerLost) {
+      if (simpleMode) {
+        if (countGame > 1) {
+          setCountGame(countGame - 1);
+          resetGame();
+          return;
+        }
+      }
       finishGame(STATUS_LOST);
       return;
     }
@@ -195,7 +208,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             </>
           )}
         </div>
-        {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
+        {status === STATUS_IN_PROGRESS ? <Button countGame={simpleMode ? countGame : null} onClick={resetGame}>Начать заново</Button> : null}
       </div>
 
       <div className={styles.cards}>
