@@ -103,11 +103,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setTimer(getTimerValue(null, null));
     setStatus(STATUS_PREVIEW);
   }
-  function resetSimpleGame(status = STATUS_RESET) {
-    setCountGame(countGame - 1);
-    setGameEndDate(new Date());
-    setStatus(status);
-  }
+  // function resetSimpleGame(status = STATUS_RESET) {
+  //   setCountGame(countGame - 1);
+  //   //setGameEndDate(new Date());
+  //   setStatus(status);
+  // }
 
   /**
    * Обработка основного действия в игре - открытие карты.
@@ -173,7 +173,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     if (playerLost) {
       if (simpleMode) {
         if (countGame > 1) {
-          resetSimpleGame(STATUS_RESET);
+          //resetSimpleGame(STATUS_RESET);
+          setTimeout(() => {
+            openCardsWithoutPair[1].open = false;
+          }, 500);
+          setCountGame(countGame - 1);
           return;
         }
       }
@@ -267,6 +271,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           />
         ))}
       </div>
+
+      {!simpleMode ? null : <p>Осталось попыток: {countGame}</p>}
 
       {isGameEnded ? (
         <div className={styles.modalContainer}>
