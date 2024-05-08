@@ -169,13 +169,17 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
     const playerLost = openCardsWithoutPair.length >= 2;
 
+    console.log(openCardsWithoutPair);
+
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
     if (playerLost) {
       if (simpleMode) {
         if (countGame > 1) {
           //resetSimpleGame(STATUS_RESET);
           setTimeout(() => {
-            openCardsWithoutPair[1].open = false;
+            openCardsWithoutPair.map(card => {
+              card.open = false;
+            });
           }, 500);
           setCountGame(countGame - 1);
           return;
